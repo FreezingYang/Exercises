@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查看部门信息</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            outline-style: none;
+        }
+
+        #dept_tab {
+            width: 850px;
+            text-align: center;
+            font-size: 18px;
+            margin: 10px auto;
+        }
+
+        #update_box{
+            width: 850px;
+            font-size: 18px;
+            margin: 20px auto;
+        }
+
+        #update_box button{
+            padding: 5px 10px;
+        }
+
+        tr:nth-child(odd) {
+            background: rgb(188, 188, 188);
+        }
+
+        tr:nth-child(even) {
+            background: rgb(255, 255, 255);
+        }
+
+
+    </style>
+</head>
+<body>
+    <form th:action="@{dept(method='amend')}" method="post">
+        <div id="update_box">
+            <input type="submit" value="创建" id="add" name="update">
+            <input type="submit" value="编辑" id="update" name="update">
+            <input type="submit" value="删除" id="delete" name="update">
+        </div>
+        <table id="dept_tab" border="1" cellspacing="0" cellpadding="15">
+            <tr><th>&emsp;&emsp;</th>
+                <th>部门ID</th>
+                <th>部门标号</th>
+                <th>部门姓名</th>
+                <th>所属省份</th>
+                <th>部门人数</th>
+                <th>描述</th>
+            </tr>
+
+            <tr th:each="item: ${deptList}">
+                <td><input type="checkbox" th:value="${item.deptId}" name="select" class="sel"></td>
+                <td th:text="${item.deptId}"></td>
+                <td th:text="${item.deptNumber}"></td>
+                <td th:text="${item.deptName}"></td>
+                <td th:text="${item.province}"></td>
+                <td th:text="${item.peopleCounting}"></td>
+                <td th:text="${item.described}"></td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        var  upBut = document.getElementById("update")
+        var  delBut = document.getElementById("delete")
+        var  sel = document.getElementsByClassName("sel")
+
+        upBut.onclick = function (event) {
+            var num = 0;
+            for (let i = 0; i < sel.length; i++) {
+                if (sel[i].checked) {
+                    num ++
+                }
+            }
+            if (num > 1){
+                alert("只能选择一项")
+                event.preventDefault()
+            }else if (num === 0) {
+                alert("至少选择一项")
+                event.preventDefault()
+            }
+        }
+
+        delBut.onclick = function (event) {
+            var num = 0;
+            for (let i = 0; i < sel.length; i++) {
+                if (sel[i].checked) {
+                    num ++
+                }
+            }
+            if (num === 0) {
+                alert("至少选择一项")
+                event.preventDefault()
+            }
+        }
+
+    </script>
+</body>
+</html>

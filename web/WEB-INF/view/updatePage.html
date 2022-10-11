@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <form id="dept_form" th:action="@{/dept(method='updateDept')}" method="post">
+        <table>
+            <tr>
+                <td>部门ID</td>
+                <td><input type="text" th:value="${dept.deptId}" name="deptId" readonly="readonly"></td>
+            </tr>
+            <tr>
+                <td>部门标号</td>
+                <td><input type="text" th:value="${dept.deptNumber}" name="deptNumber"></td>
+            </tr>
+            <tr>
+                <td>部门姓名</td>
+                <td><input type="text" th:value="${dept.deptName}" name="deptName"></td>
+            </tr>
+            <tr>
+                <td>所属省份</td>
+                <td><input type="text" th:value="${dept.province}" name="province"></td>
+            </tr>
+            <tr>
+                <td>部门人数</td>
+                <td><input type="text" th:value="${dept.peopleCounting}" name="peopleCounting"></td>
+            </tr>
+            <tr>
+                <td>描述</td>
+                <td><input type="text" th:value="${dept.described}" name="described"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="修改"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

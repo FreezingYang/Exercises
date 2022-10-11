@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>创建部门</title>
+</head>
+<body>
+    <form th:action="@{dept(method='addDept')}" method="post">
+        <table>
+            <tr>
+                <td>部门ID</td>
+                <td><input type="text" name="deptId"></td>
+            </tr>
+            <tr>
+                <td>部门标号</td>
+                <td><input type="text" name="deptNumber"></td>
+            </tr>
+            <tr>
+                <td>部门姓名</td>
+                <td><input type="text" name="deptName"></td>
+            </tr>
+            <tr>
+                <td>所属省份</td>
+                <td><input type="text" name="province"></td>
+            </tr>
+            <tr>
+                <td>部门人数</td>
+                <td><input type="text" name="peopleCounting"></td>
+            </tr>
+            <tr>
+                <td>描述</td>
+                <td><input type="text" name="described"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="创建"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
