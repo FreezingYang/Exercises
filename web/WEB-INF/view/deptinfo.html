@@ -26,10 +26,6 @@
             margin: 20px auto;
         }
 
-        #update_box button{
-            padding: 5px 10px;
-        }
-
         tr:nth-child(odd) {
             background: rgb(188, 188, 188);
         }
@@ -99,6 +95,8 @@
             }
             if (num === 0) {
                 alert("至少选择一项")
+                event.preventDefault()
+            }else if (!confirm("确定是否删除！")) {
                 event.preventDefault()
             }
         }
