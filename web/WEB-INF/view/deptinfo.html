@@ -64,11 +64,21 @@
                 <td th:text="${item.described}"></td>
             </tr>
         </table>
+        <div style="width: 850px; margin: 5px auto;">
+            <input type="button" value="首  页" th:onclick="|page(1)|" th:disabled="${session.pageNo==1}">
+            <input type="button" value="上一页" th:onclick="|page(${session.pageNo-1})|" th:disabled="${session.pageNo==1}">
+            <input type="button" value="下一页" th:onclick="|page(${session.pageNo+1})|"  th:disabled="${session.pageNo==session.pageCount}">
+            <input type="button" value="尾  页" th:onclick="|page(${session.pageCount})|"  th:disabled="${session.pageNo==session.pageCount}">
+        </div>
     </form>
     <script>
         var  upBut = document.getElementById("update")
         var  delBut = document.getElementById("delete")
         var  sel = document.getElementsByClassName("sel")
+
+        function page(pageNo) {
+            window.location.href="dept?method=getDeptList&pageNo="+pageNo;
+        }
 
         upBut.onclick = function (event) {
             var num = 0;

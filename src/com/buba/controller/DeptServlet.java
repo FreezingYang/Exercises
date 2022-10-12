@@ -4,12 +4,14 @@ import com.buba.entity.Dept;
 import com.buba.service.DeptService;
 import com.buba.service.impl.DeptServiceImpl;
 import com.buba.utils.JDBCUtils;
+import com.mysql.cj.util.StringUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -21,10 +23,13 @@ public class DeptServlet extends ViewBaseServlet{
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 //        resp.setCharacterEncoding("UTF-8");
-        // 查看部门信息
-        if (req.getParameter("method").equals("findAllDepts")){
-            this.findAllDepts(req, resp);
+        if (req.getParameter("method").equals("getDeptList")){
+            this.getDeptList(req, resp);
         }
+        // 查看部门信息
+//        if (req.getParameter("method").equals("findAllDepts")){
+//            this.findAllDepts(req, resp);
+//        }
         // form提交内容
         if (req.getParameter("method").equals("amend")){
             this.amend(req, resp);
@@ -38,6 +43,26 @@ public class DeptServlet extends ViewBaseServlet{
             this.updateDept(req, resp);
         }
 
+    }
+
+    protected void getDeptList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer pageNo = 1;
+        String pageNoStr = req.getParameter("pageNo");
+        if (pageNoStr != null){
+            pageNo = Integer.parseInt(pageNoStr);
+        }
+        // 设置会话域
+        HttpSession session = req.getSession();
+        session.setAttribute("pageNo", pageNo);
+        // 总记录条数
+        int deptCount = dept.getDeptCount();
+        // 总页数 (总记录条数 + 显示条数 - 1)/显示条数
+        int pageCount = (deptCount+5-1)/5;
+        session.setAttribute("pageCount", pageCount);
+
+        List<Dept> depts = dept.getDeptList(pageNo);
+        req.setAttribute("deptList", depts);
+        processTemplate("deptinfo", req, resp);
     }
 
     protected void findAllDepts(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

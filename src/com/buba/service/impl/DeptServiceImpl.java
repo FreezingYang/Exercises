@@ -39,6 +39,20 @@ public class DeptServiceImpl implements DeptService {
         jdbcTemplate.update(sql, d.getDeptNumber(), d.getDeptName(), d.getProvince(), d.getPeopleCounting(), d.getDescribed(), d.getDeptId());
     }
 
+    @Override
+    public List<Dept> getDeptList(Integer pageNo) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(JDBCUtils.getDateSource());
+        String sql = "select * from department limit ?, 5";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Dept.class), (pageNo-1)*5);
+    }
+
+    @Override
+    public int getDeptCount() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(JDBCUtils.getDateSource());
+        String sql = "select count(*) from department";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
     private void updateEmpDept(Integer id){
         JdbcTemplate jdbcTemplate = new JdbcTemplate(JDBCUtils.getDateSource());
         String sql = "update employee set dept = null where dept = ?";
