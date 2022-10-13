@@ -20,12 +20,6 @@
             margin: 10px auto;
         }
 
-        #update_box{
-            width: 850px;
-            font-size: 18px;
-            margin: 20px auto;
-        }
-
         tr:nth-child(odd) {
             background: rgb(188, 188, 188);
         }
@@ -34,7 +28,30 @@
             background: rgb(255, 255, 255);
         }
 
+        #update_box{
+            width: 850px;
+            font-size: 18px;
+            margin: 20px auto;
+        }
 
+        #update_box input{
+            width: 60px;
+            height: 30px;
+            font-size: 16px;
+            color: white;
+            border: 0;
+            border-radius: 5px;
+        }
+
+        #add{
+            background: #06a7e1;
+        }
+        #update{
+            background: gray;
+        }
+        #delete{
+            background: red;
+        }
     </style>
 </head>
 <body>
@@ -64,7 +81,7 @@
                 <td th:text="${item.described}"></td>
             </tr>
         </table>
-        <div style="width: 850px; margin: 5px auto;">
+        <div style="width: 850px; margin: 5px auto; text-align: center;">
             <input type="button" value="首  页" th:onclick="|page(1)|" th:disabled="${session.pageNo==1}">
             <input type="button" value="上一页" th:onclick="|page(${session.pageNo-1})|" th:disabled="${session.pageNo==1}">
             <input type="button" value="下一页" th:onclick="|page(${session.pageNo+1})|"  th:disabled="${session.pageNo==session.pageCount}">

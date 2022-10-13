@@ -100,7 +100,8 @@ public class DeptServlet extends ViewBaseServlet{
         String described = req.getParameter("described");
         Dept add = new Dept(Integer.valueOf(id), number, name, province, Integer.valueOf(person), described);
         dept.addDept(add);
-        this.findAllDepts(req, resp);
+//        this.findAllDepts(req, resp);
+        this.getDeptList(req, resp);
     }
 
     protected void removeDept(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -108,7 +109,8 @@ public class DeptServlet extends ViewBaseServlet{
         for (String item: sel) {
             dept.removeDept(Integer.valueOf(item));
         }
-        this.findAllDepts(req, resp);
+//        this.findAllDepts(req, resp);
+        this.getDeptList(req, resp);
     }
 
     protected void updateDept(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -120,6 +122,7 @@ public class DeptServlet extends ViewBaseServlet{
         String described = req.getParameter("described");
         Dept update = new Dept(Integer.valueOf(deptId), deptNumber, name, province, Integer.valueOf(peoples), described);
         dept.updateDept(update);
-        this.findAllDepts(req, resp);
+//        this.findAllDepts(req, resp);
+        this.getDeptList(req, resp);
     }
 }
